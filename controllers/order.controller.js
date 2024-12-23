@@ -29,6 +29,9 @@ const cancelOrder = async (req, res) => {
             return res.status(404).json({ message: 'Order not found' });
         }
         res.status(200).json({ message: 'Order cancelled successfully' });
+        if (req.user.role !== 'admin' && req.user.role !== 'employee') {
+            return res.status(403).json({ message: 'No permission.' });
+        }
     } catch (error) {
         res.status(500).json({ message: 'Error cancelling order', error });
     }
