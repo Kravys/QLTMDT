@@ -19,7 +19,7 @@ const getAllProducts = async () => {
 };
 const getProductById = async (id) =>{
     try {
-        const product = await Product.findByID(id);
+        const product = await Product.findByPk(id);
         if(!product){
             throw new Error('Product not found');
         }

@@ -8,6 +8,7 @@ const getAlluser = async (req, res) =>{
             return res.status(403).json({ message: 'No permission.' });
         }
     } catch (error) {
+        console.error('Error:', error); 
         res.status(500).json({message: 'Error', error});
     }
 };

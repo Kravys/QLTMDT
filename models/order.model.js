@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); 
-
+const sequelize = require('../config/db');
+const User = require('../models/user.model')
+const OrderItem = require('../models/orderItem.model');
 const Order = sequelize.define('orders', {
     id: {
         type: DataTypes.INTEGER,
@@ -9,15 +10,19 @@ const Order = sequelize.define('orders', {
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references :{
+            model : User,
+            key : 'id'
+        },
     },
     total_price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     payment_method: {
-        type: DataTypes.ENUM('COD', 'credit_card', 'e-wallet'),
-        allowNull: false,
+        type: DataTypes.ENUM('COD', 'credit_card'),
+        allowNull: true,
         defaultValue: 'COD' 
     },
     delivery_status: {
@@ -27,7 +32,8 @@ const Order = sequelize.define('orders', {
     },
     address: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true,
+        
     },
     created_at: {
         type: DataTypes.DATE,
@@ -41,7 +47,9 @@ const Order = sequelize.define('orders', {
         onUpdate: Sequelize.NOW 
     }
 }, {
-    timestamps: false 
+    tableName: 'orders',
+    timestamps: false
 });
-
+// Order.hasMany(OrderItem, { foreignKey: 'order_id' });
+// OrderItem.belongsTo(Order, { foreignKey: 'order_id' });
 module.exports = Order;

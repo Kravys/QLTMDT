@@ -33,7 +33,7 @@ const getProductById = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const product = await productService.updateProduct(req.params.id, req.body);
-        res.status(200).json({ message: 'Product updated successfully', product });
+        res.status(200).json({ message: 'Product updated ', product });
         if (req.user.role !== 'admin' && req.user.role !== 'employee') {
             return res.status(403).json({ message: 'No permission.' });
         }
@@ -45,7 +45,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         await productService.deleteProduct(req.params.id);
-        res.status(200).json({ message: 'Product deleted successfully' });
+        res.status(200).json({ message: 'Product deleted ' });
         if (req.user.role !== 'admin' && req.user.role !== 'employee') {
             return res.status(403).json({ message: 'No permission.' });
         }

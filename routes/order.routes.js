@@ -5,8 +5,8 @@ const { authorize } = require('../middlewares/role.middleware');
 const { authenticate } = require('../middlewares/auth.middleware');
 
 
-router.post('/crOrder', authenticate,authorize(['customer']),orderController.createOrder); 
-router.get('/aOrder',  authenticate,authorize(['customer']),orderController.getUserOrders); 
-router.put('/cancel/:id',  authenticate,authorize(['admin', 'employee']),orderController.cancelOrder); 
+router.post('/crOrder', orderController.createOrder); 
+router.get('/uOrder',  authenticate,authorize(['customer']),orderController.getOrdersByUser); 
+router.put('/cancel/:id',  authenticate,authorize(['admin', 'employee']),orderController.getOrderById); 
 
 module.exports = router;

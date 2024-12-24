@@ -1,65 +1,74 @@
 const Order = require('../models/order.model');
 const OrderItem = require('../models/orderItem.model');
 const Product = require('../models/product.model');
+/**
+ * 
+ * @param {number} user_id 
+ * @param {Array} items 
+ * @returns {Promise<Object>} 
+ */
+const createOrder = async (user_id, items, address) => {
+    let total_price = 0;
 
-
-const createOrder = async (userId, items) => {
-    const session = await Order.startSession();
-    session.startTransaction();
-
-    try {
-     
-        let totalAmount = 0;
-        for (const item of items) {
-            const product = await Product.findById(item.productId);
-            if (!product) throw new Error('Product not found');
-            totalAmount += product.price * item.quantity;
+    for(let item of items){
+        const product = await Product.findByPk(item.product_id)
+        if(!product){
+            Error( 404, 'Product not found');
         }
-
-      
-        const newOrder = await Order.create([{ user: userId, totalAmount }], { session });
-
-       
-        for (const item of items) {
-            await OrderItem.create(
-                [
-                    {
-                        order: newOrder[0]._id,
-                        product: item.productId,
-                        quantity: item.quantity,
-                        price: item.price,
-                    },
-                ],
-                { session }
-            );
+        if(product.quantity < item.quantity){
+            Error( 404, 'Product quantity is not available');
         }
-
-        await session.commitTransaction();
-        session.endSession();
-
-        return newOrder[0];
-    } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
-        throw error;
+        total_price += product.price * item.quantity;
     }
+
+    const order = await Order.create({
+        user_id,
+        total_price,
+        delivery_status: 'pending',
+        address
+      });
+      console.log(address);
+    for(let item of items){
+        await OrderItem.create({
+            order_id : order.id,
+            product_id : item.product_id,
+            quantity : item.quantity,
+            price : item.price  * (await Product.findByPk(item.product_id)).price,
+        });
+        const product = await Product.findByPk(item.product_id);
+        product.quantity -= item.quantity;
+        await product.save();
+      }
+      return order;
+    };
+/**
+ * @param {number} user_id 
+ * @returns {Promise<Array>}
+ */
+
+const getOrdersByUser = async (user_id) => {
+    const order = await Order.findAll({
+        where : {user_id},
+        include : [{model : OrderItem}]
+    });
+    return order;
 };
-
-const getUserOrders = async (userId) => {
-    return await Order.find({ user: userId }).populate('user').sort({ createdAt: -1 });
-};
-
-const cancelOrder = async (orderId) => {
-    const order = await Order.findById(orderId);
-    if (!order) return null;
-
-    order.status = 'cancelled';
-    await order.save();
-
-    return true;
+/**
+ * @param {number} order_id
+ * @returns {Promise<Object>}
+ */
+const getOrderById = async (user_id) => {
+    const order = await Order.findByPk(order_id,{
+        include : [{model : OrderItem}]
+    });
+    return order;
 };
 module.exports = {
     createOrder,
-    getUserOrders,
-    cancelOrder,
-};
+    getOrdersByUser,
+    getOrderById,
+  };
+
+
+    
+  

@@ -2,43 +2,53 @@ const orderService = require('../services/order.service');
 
 const createOrder = async (req, res) => {
     try {
-        const { items } = req.body; 
-        const userId = req.user._id;
-        const newOrder = await orderService.createOrder(userId, items);
-        res.status(201).json(newOrder);
-    } catch (error) {
-        res.status(500).json({ message: 'Error creating order', error });
-    }
-};
+      const { user_id, items } = req.body;
+    //   console.log(req.body);
 
-const getUserOrders = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        const orders = await orderService.getUserOrders(userId);
-        res.status(200).json(orders);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching orders', error });
+      const order = await orderService.createOrder(user_id, items);
+      return res.status(201).json(order);
+    } catch (err) {
+      console.error(err);
+      return res.status(400).json({ message: err.message });
     }
-};
+  };
+const getOrdersByUser = async (req, res) => {
+    try {
+      const orders = await orderService.getOrdersByUser(req.params.user_id);
+      return res.status(200).json(orders);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Error fetching orders' });
+    }
+  };
+  const getOrderById = async (req, res) => {
+    try {
+      const order = await orderService.getOrderById(req.params.id);
+      return res.status(200).json(order);
+    } catch (err) {
+      console.error(err);
+      return res.status(404).json({ message: err.message });
+    }
+  };
 
-const cancelOrder = async (req, res) => {
-    try {
-        const orderId = req.params.id;
-        const result = await orderService.cancelOrder(orderId);
-        if (!result) {
-            return res.status(404).json({ message: 'Order not found' });
-        }
-        res.status(200).json({ message: 'Order cancelled successfully' });
-        if (req.user.role !== 'admin' && req.user.role !== 'employee') {
-            return res.status(403).json({ message: 'No permission.' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Error cancelling order', error });
-    }
-};
+// const cancelOrder = async (req, res) => {
+//     try {
+//         const orderId = req.params.id;
+//         const result = await orderService.cancelOrder(orderId);
+//         if (!result) {
+//             return res.status(404).json({ message: 'Order not found' });
+//         }
+//         res.status(200).json({ message: 'Order cancelled successfully' });
+//         if (req.user.role !== 'admin' && req.user.role !== 'employee') {
+//             return res.status(403).json({ message: 'No permission.' });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error cancelling order', error });
+//     }
+// };
 
 module.exports = {
     createOrder,
-    getUserOrders,
-    cancelOrder,
+    getOrderById,
+    getOrdersByUser,
 };
