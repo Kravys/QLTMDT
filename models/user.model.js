@@ -39,12 +39,12 @@ const User = sequelize.define('users', {
         type: DataTypes.STRING(15),
         allowNull: true
     },
-    created_at: {
+    createdAt: {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: Sequelize.NOW 
     },
-    updated_at: {
+    updatedAt: {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: Sequelize.NOW,
