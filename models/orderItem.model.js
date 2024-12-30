@@ -27,6 +27,20 @@ const OrderItems = sequelize.define('order_items', {
     price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW,
+        onUpdate: Sequelize.NOW 
     }
+}, {
+    tableName: 'order_items',
+    timestamps: false
 });
 module.exports = OrderItems; 
