@@ -5,7 +5,7 @@ const { authenticate } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-
+// api
 router.post('/products', authenticate,authorize(['admin', 'employee']), productController.createProduct); 
 router.get('/aproducts', productController.getAllProducts); 
 router.get('/products/:id', productController.getProductById); 

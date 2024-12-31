@@ -23,13 +23,15 @@ const getOrdersByUser = async (req, res) => {
   };
   const getOrderById = async (req, res) => {
     try {
-      const order = await orderService.getOrderById(req.params.id);
+      const orderId = req.params.id;  // Sử dụng req.params.id để truy xuất tham số
+      const order = await orderService.getOrderById(orderId);
       return res.status(200).json(order);
     } catch (err) {
       console.error(err);
       return res.status(404).json({ message: err.message });
     }
   };
+  
 
 // const cancelOrder = async (req, res) => {
 //     try {

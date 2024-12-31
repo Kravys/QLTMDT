@@ -17,34 +17,43 @@ const getAllProducts = async () => {
         throw new Error('Error creating product: ' + error.message);
     }
 };
-const getProductById = async (id) =>{
+const getProductById = async (id) => {
     try {
         const product = await Product.findByPk(id);
-        if(!product){
-            throw new Error('Product not found');
-        }
-        return product;
-    } catch (error) {
-        throw new Error('Error creating product: ' + error.message);
-    }
-};
-const updateProduct = async (id, data) => {
-    try {
-        const product = await Product.findByIDAndUpdate(id, data, {new : true});
-        if(!product){
-            throw new Error('Product not found');
-        }
-    } catch (error) {
-        throw new Error('Error creating product: ' + error.message);
-    }
-};
-const deleteProduct = async (id) => {
-    try {
-        const product = await Product.findByIDAndDelete(id);
         if (!product) {
             throw new Error('Product not found');
         }
         return product;
+    } catch (error) {
+        throw new Error('Error fetching product: ' + error.message);
+    }
+};
+
+const updateProduct = async (id, data) => {
+    try {
+        const product = await Product.findByPk(id);
+
+        if (!product) {
+            throw new Error('Product not found'); 
+        }
+        const updatedProduct = await product.update(data);
+        return updatedProduct; 
+    } catch (error) {
+        throw new Error('Error updating product: ' + error.message);
+    }
+};
+
+const deleteProduct = async (id) => {
+    try {
+        const rowsDeleted = await Product.destroy({
+            where: { id }
+        });
+
+        if (!rowsDeleted) {
+            throw new Error('Product not found');
+        }
+
+        return { message: 'Product deleted successfully' };
     } catch (error) {
         throw new Error('Error deleting product: ' + error.message);
     }

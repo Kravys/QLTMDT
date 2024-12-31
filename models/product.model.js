@@ -45,9 +45,9 @@ const Product = sequelize.define('products', {
         allowNull: true
     },
     status: {
-        type: DataTypes.ENUM('active', 'inactive', 'discontinued'),
+        type: DataTypes.ENUM('available','out_of_stock'),
         allowNull: false,
-        defaultValue: 'active'
+        defaultValue: 'available'
     }
 }, {
     timestamps: false
