@@ -1,0 +1,75 @@
+### Luồng nghiệp vụ cho project Backend Quản Lý Thương Mại Điện Tử
+
+#### 1. **Chức năng Quản lý Sản phẩm**
+- **Admin:**
+  1. Thêm mới sản phẩm:
+     - Nhập thông tin sản phẩm (tên, giá, mô tả, danh mục, ảnh, số lượng tối đa...).
+     - Lưu thông tin sản phẩm vào database.
+     - Trả kết quả thành công hoặc lỗi.
+  2. Cập nhật thông tin sản phẩm:
+     - Tìm kiếm sản phẩm theo ID hoặc tên.
+     - Cập nhật thông tin mong muốn.
+     - Lưu thông tin thay đổi và trả kết quả.
+  3. Xóa sản phẩm:
+     - Xác nhận thao tác xóa.
+     - Cập nhật trạng thái sản phẩm là "không hoạt động" hoặc xóa khỏi database.
+
+#### 2. **Quản lý Tài khoản**
+- **Admin:**
+  1. Tạo tài khoản người dùng/nhân viên:
+     - Nhập thông tin (tên, email, vai trò, mật khẩu...).
+     - Gửi email xác nhận (nếu cần).
+  2. Cập nhật vai trò tài khoản.
+  3. Khóa/mở khóa tài khoản.
+
+- **Người dùng:**
+  1. Đăng ký tài khoản:
+     - Nhập thông tin cá nhân.
+     - Nhận email xác nhận.
+  2. Đăng nhập:
+     - Nhập email/mật khẩu.
+     - Xác thực tài khoản.
+
+#### 3. **Hệ thống Giỏ hàng**
+- **Người dùng:**
+  1. Thêm sản phẩm vào giỏ hàng:
+     - Chọn sản phẩm và số lượng.
+     - Lưu trữ dữ liệu giỏ hàng tạm thời (được lưu trên server hoặc client).
+  2. Xem giỏ hàng:
+     - Hiển thị danh sách sản phẩm trong giỏ.
+  3. Cập nhật giỏ hàng:
+     - Thay đổi số lượng sản phẩm.
+     - Xóa sản phẩm khỏi giỏ hàng.
+     - Xác nhận đơn hàng(Chưa làm).
+#### 4. **Thanh toán**
+- **Người dùng:**
+  1. Xác nhận thanh toán:
+     - Chọn phương thức thanh toán (thẻ tín dụng, chuyển khoản, COD...).
+     - Nhập thông tin giao hàng.
+  2. Thanh toán:
+     - Gửi yêu cầu thanh toán qua payment gateway.
+     - Nhận xác nhận giao dịch thành công.
+  3. Nhận email hóa đơn.
+
+#### 5. **Quản lý Đơn hàng**
+- **Admin:**
+  1. Xem danh sách đơn hàng.
+  2. Cập nhật trạng thái đơn hàng (chờ xử lý, đang giao, đã giao, hủy...).
+- **Người dùng:**
+  1. Xem lịch sử đơn hàng.
+  2. Hủy đơn hàng (nếu có thể).
+
+#### 6. **Hệ thống Đánh giá và Nhận xét**(Chưa làm)
+- **Người dùng:**
+  1. Viết nhận xét và đánh giá sản phẩm.
+  2. Chỉnh sửa hoặc xóa nhận xét.
+- **Admin:**
+  1. Quản lý nhận xét (duyệt, xóa...).
+
+#### 7. **Báo cáo**(Chưa làm)
+- **Admin:**
+  1. Xem báo cáo doanh thu theo thời gian.
+  2. Xem báo cáo sản phẩm bán chạy.
+  3. Theo dõi tình trạng kho hàng.
+
+

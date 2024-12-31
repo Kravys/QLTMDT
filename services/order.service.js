@@ -58,16 +58,27 @@ const getOrdersByUser = async (user_id) => {
  * @returns {Promise<Object>}
  */
 const getOrderById = async (orderId) => {
-    try {
-      const order = await Order.findByPk(orderId); 
-      if (!order) {
-        throw new Error('Order not found');
-      }
-      return order;
-    } catch (error) {
-      throw new Error('Error fetching order: ' + error.message);
+  try {
+    const order = await Order.findByPk(orderId, {
+      include: [
+        {
+          model: OrderItem,
+          as: 'orderItems',  
+          attributes: ['product_id', 'quantity', 'price'],  
+        },
+      ],
+    });
+
+    if (!order) {
+      throw new Error('Order not found');
     }
-  };
+
+    return order;
+  } catch (error) {
+    throw new Error('Error fetching order: ' + error.message);
+  }
+};
+
   
 module.exports = {
     createOrder,
