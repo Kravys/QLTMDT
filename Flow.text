@@ -11,8 +11,6 @@
      - Cập nhật thông tin mong muốn.
      - Lưu thông tin thay đổi và trả kết quả.
   3. Xóa sản phẩm:
-     - Xác nhận thao tác xóa.
-     - Cập nhật trạng thái sản phẩm là "không hoạt động" hoặc xóa khỏi database.
 
 #### 2. **Quản lý Tài khoản**
 - **Admin:**
