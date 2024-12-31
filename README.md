@@ -38,3 +38,8 @@ Update Products ex :
     "category": 2,
     "status": "available"
 }
+
+Update Orders ex : 
+{
+    
+}

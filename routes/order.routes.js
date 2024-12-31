@@ -8,5 +8,5 @@ const { authenticate } = require('../middlewares/auth.middleware');
 router.post('/crOrder', authenticate,authorize(['customer', 'admin']) ,orderController.createOrder); 
 router.get('/uOrder/user/:user_id',  authenticate,authorize(['admin' , 'employee']),orderController.getOrdersByUser); 
 router.get('/idOrder/:id',  authenticate,authorize(['admin', 'employee']),orderController.getOrderById); 
-
+router.put('/:id', authenticate,authorize(['admin', 'employee']),orderController.updateOrder);
 module.exports = router;

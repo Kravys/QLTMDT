@@ -31,8 +31,19 @@ const getOrdersByUser = async (req, res) => {
       return res.status(404).json({ message: err.message });
     }
   };
+  const updateOrder = async (req, res) => {
+    try {
+      const orderId = req.params.id;
+      const updateData = req.body; 
+      const updatedOrder = await orderService.updateOrder(orderId, updateData);
   
-
+      return res.status(200).json(updatedOrder);
+    } catch (err) {
+      console.error(err);
+      return res.status(400).json({ message: err.message });
+    }
+  };
+  
 // const cancelOrder = async (req, res) => {
 //     try {
 //         const orderId = req.params.id;
@@ -53,4 +64,5 @@ module.exports = {
     createOrder,
     getOrderById,
     getOrdersByUser,
+    updateOrder,
 };

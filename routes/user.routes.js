@@ -8,5 +8,4 @@ router.get('/aUser', authenticate ,authorize(['admin', 'employee']),userControll
 router.get('/:id', authenticate,authorize(['admin', 'employee']),userController.getUserById);
 router.put('/:id', authenticate,authorize(['admin', 'employee']),userController.updateUser);
 router.delete('/:id', authenticate,authorize(['admin', 'employee']),userController.deleteUser);
-
 module.exports = router;

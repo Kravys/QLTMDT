@@ -78,12 +78,31 @@ const getOrderById = async (orderId) => {
     throw new Error('Error fetching order: ' + error.message);
   }
 };
+/**
+ * @param {number} order_id 
+ * @param {Object} updateData 
+ * @returns {Promise<Object>}
+ */
+const updateOrder = async (order_id, updateData) => {
+  try {
+    const order = await Order.findByPk(order_id);
 
-  
+    if (!order) {
+      throw new Error('Order not found');
+    }
+
+    const updatedOrder = await order.update(updateData);
+
+    return updatedOrder;
+  } catch (error) {
+    throw new Error('Error updating order: ' + error.message);
+  }
+};
 module.exports = {
     createOrder,
     getOrdersByUser,
     getOrderById,
+    updateOrder
   };
   // test
 
