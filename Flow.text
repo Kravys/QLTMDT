@@ -47,10 +47,8 @@
   2. Thanh toán:
      - Gửi yêu cầu thanh toán qua payment gateway.
      - Nhận xác nhận giao dịch thành công.
-  3. Nhận email hóa đơn.
-
 #### 5. **Quản lý Đơn hàng**
-- **Admin:**
+- **Admin:**.
   1. Xem danh sách đơn hàng.
   2. Cập nhật trạng thái đơn hàng (chờ xử lý, đang giao, đã giao, hủy...).
 - **Người dùng:**

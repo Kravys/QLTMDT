@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
 const app = express();
 
 app.use(morgan('dev'));
@@ -21,7 +20,8 @@ const userRoutes = require('../routes/user.routes');
 app.use('/api1', userRoutes);
 const orderRoutes = require('../routes/order.routes');
 app.use('/api2', orderRoutes);
-
+const statisticsRoutes = require('../routes/statistics.routes');
+app.use('/api3/statistics', statisticsRoutes);
 app.use('/auth', router);
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Not found' });

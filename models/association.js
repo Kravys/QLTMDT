@@ -1,10 +1,11 @@
-// const Order = require('./order.model');
-// const OrderItems = require('./orderItem.model');
+
 // const Product = require('./product.model');
+// const Statistics = require('./statistics.model');
 
-// Order.hasMany(OrderItems, { foreignKey: 'order_id' });
-// OrderItem.belongsTo(Order, { foreignKey: 'order_id' });
+// const associate = () => {
+//     // Định nghĩa quan hệ
+//     Product.hasOne(Statistics, { foreignKey: 'product_id', as: 'statistics' });
+//     Statistics.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
+// };
 
-// OrderItem.belongsTo(Product, { foreignKey: 'product_id' });
-// Product.hasMany(OrderItem, { foreignKey: 'product_id' });
-// // Bảng kết nối
+// module.exports = associate;
