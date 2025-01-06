@@ -13,11 +13,18 @@ const Product = sequelize.define('products', {
     },
     price: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
+        validate:{
+            min: 0,
+            isDecimal : true
+        }
     },
     quantity: {
         type: DataTypes.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
+        validate:{
+            min:0
+        }
     },
     description: {
         type: DataTypes.TEXT,
@@ -47,10 +54,20 @@ const Product = sequelize.define('products', {
     status: {
         type: DataTypes.ENUM('available','out_of_stock'),
         allowNull: false,
-        defaultValue: 'available'
+        defaultValue: 'available',
+        validate :{
+            isIn : [['available','out_of_stock']]
+        }
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    hook:{
+        beforeUpdate: (product)=>{
+            if (product.quantity === 0){
+                product.status = 'out_of_stock'
+            }
+        }
+    }
 });
 
 

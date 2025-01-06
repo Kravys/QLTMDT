@@ -1,5 +1,15 @@
 const orderService = require('../services/order.service');
 
+
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await orderService.getAllOrders(); 
+    return res.status(200).json(orders);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Error fetching all orders' });
+  }
+};
 const createOrder = async (req, res) => {
     try {
       const { user_id, items } = req.body;
@@ -65,4 +75,5 @@ module.exports = {
     getOrderById,
     getOrdersByUser,
     updateOrder,
+    getAllOrders
 };

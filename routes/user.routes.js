@@ -9,3 +9,4 @@ router.get('/:id', authenticate,authorize(['admin', 'employee']),userController.
 router.put('/:id', authenticate,authorize(['admin', 'employee']),userController.updateUser);
 router.delete('/:id', authenticate,authorize(['admin', 'employee']),userController.deleteUser);
 module.exports = router;
+//api1

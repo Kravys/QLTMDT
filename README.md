@@ -39,7 +39,25 @@ Update Products ex :
     "status": "available"
 }
 
-Update Orders ex : 
+Register : 
 {
-    
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "securepassword123"
 }
+
+Update User :
+ {
+  "username": "Kien1",
+  "email": "newEmail@example.com",
+  "role": "employee",
+  "status": "active",
+  "address": "New Address",
+  "phone_number": "0987654321"
+}
+Update Order:
+{
+  "delivery_status" : "shipped",
+   "address" : "Ha Noi"
+}
+

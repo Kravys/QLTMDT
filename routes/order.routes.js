@@ -9,4 +9,5 @@ router.post('/crOrder', authenticate,authorize(['customer', 'admin']) ,orderCont
 router.get('/uOrder/user/:user_id',  authenticate,authorize(['admin' , 'employee']),orderController.getOrdersByUser); 
 router.get('/idOrder/:id',  authenticate,authorize(['admin', 'employee', 'customer']),orderController.getOrderById); 
 router.put('/idOrder/:id', authenticate,authorize(['admin', 'employee']),orderController.updateOrder);
+router.get('/Order', authenticate, authorize(['admin' , 'employee']), orderController.getAllOrders);
 module.exports = router;

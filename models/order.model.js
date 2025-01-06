@@ -18,7 +18,11 @@ const Order = sequelize.define('orders', {
     },
     total_price: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
+        validate :{
+            isDecimal : true,
+            min : 0
+        }
     },
     payment_method: {
         type: DataTypes.ENUM('COD', 'credit_card'),
@@ -28,7 +32,10 @@ const Order = sequelize.define('orders', {
     delivery_status: {
         type: DataTypes.ENUM('pending', 'shipped', 'delivered', 'cancelled'),
         allowNull: false,
-        defaultValue: 'pending'
+        defaultValue: 'pending',
+        validate :{
+            isIn : [['pending', 'shipped', 'delivered', 'cancelled']]
+        }
     },
     address: {
         type: DataTypes.TEXT,

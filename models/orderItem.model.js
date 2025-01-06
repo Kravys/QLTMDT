@@ -22,11 +22,18 @@ const OrderItems = sequelize.define('order_items', {
     },
     quantity: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate : {
+            min: 1
+        }
     },
     price: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
+        validate :{
+            min: 0,
+            isDecimal : true
+        }
     },
     createdAt: {
         type: DataTypes.DATE,

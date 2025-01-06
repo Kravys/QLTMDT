@@ -1,6 +1,24 @@
 const Order = require('../models/order.model');
 const OrderItem = require('../models/orderItem.model');
 const Product = require('../models/product.model');
+
+const getAllOrders = async () => {
+  try {
+    const orders = await Order.findAll({
+      include: [
+        {
+          model: OrderItem,
+          as: 'orderItems', 
+          attributes: ['product_id', 'quantity', 'price'], 
+        },
+      ],
+    });
+
+    return orders;
+  } catch (error) {
+    throw new Error('Error fetching all orders: ' + error.message);
+  }
+};
 /**
  * 
  * @param {number} user_id 
@@ -102,7 +120,8 @@ module.exports = {
     createOrder,
     getOrdersByUser,
     getOrderById,
-    updateOrder
+    updateOrder,
+    getAllOrders
   };
   // test
 

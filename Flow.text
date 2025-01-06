@@ -52,20 +52,7 @@
   1. Xem danh sách đơn hàng.
   2. Cập nhật trạng thái đơn hàng (chờ xử lý, đang giao, đã giao, hủy...).
 - **Người dùng:**
-  1. Xem lịch sử đơn hàng.
-  2. Hủy đơn hàng (nếu có thể).
+  1. Hủy đơn hàng (nếu có thể).
 
-#### 6. **Hệ thống Đánh giá và Nhận xét**(Chưa làm)
-- **Người dùng:**
-  1. Viết nhận xét và đánh giá sản phẩm.
-  2. Chỉnh sửa hoặc xóa nhận xét.
-- **Admin:**
-  1. Quản lý nhận xét (duyệt, xóa...).
-
-#### 7. **Báo cáo**(Chưa làm)
-- **Admin:**
-  1. Xem báo cáo doanh thu theo thời gian.
-  2. Xem báo cáo sản phẩm bán chạy.
-  3. Theo dõi tình trạng kho hàng.
 
 
