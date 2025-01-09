@@ -9,13 +9,52 @@ const createProduct = async (data) => {
         throw new Error('Error creating product: ' + error.message);
     }
 };
-const getAllProducts = async () => {
+const getAllProducts = async (page = 1, limit = 10) => {
     try {
-        const products = await Product.findAll();
-        return products;
+        const offset = await Product.findAll();
+        const products = await Product.findAndCountAll({
+            limit,
+            offset,
+        });
+        return {
+            total: products.count,
+            totalPages: Math.ceil(products.count / limit),
+            currentPage: page,
+            products: products.rows,
+        }
     } catch (error) {
         throw new Error('Error creating product: ' + error.message);
     }
+};
+const getFilteredProducts = async(filter, page = 1, limit = 10) =>{
+      try {
+        const offset = (page-1) * limit;
+        const whereCondition = {};
+        if(filter.category){
+            whereCondition.category = filter.category;
+        }
+        if(filter.priceRange && Array.isArray(filter.priceRange) && filter.priceRange .length == 2){
+            whereCondition.price = {
+                [Op.between] : filter.priceRange
+
+            };
+        }
+        const product = await Product.findAndCountAll({
+            where: whereCondition,
+            limit,
+            offset,
+        });
+
+        return {
+            total: product.count,
+            totalPages: Math.ceil(product.count / limit),
+            currentPage : page,
+            products : product.rows
+        }
+      } catch (error) {
+        throw new Error('Error fetching filtered products: ' + error.message);
+      } 
+        
 };
 const getProductById = async (id) => {
     try {
@@ -26,6 +65,15 @@ const getProductById = async (id) => {
         return product;
     } catch (error) {
         throw new Error('Error fetching product: ' + error.message);
+    }
+};
+const getSortedProducts = async (sort) =>{
+    try {
+        const order = sort === 'desc' ? [['price', 'DESC']] : [['price', 'ASC']];
+        const products = await Product.findAll();
+        return products;
+    } catch (error) {
+        throw new Error('Error sorted'+ error.message);
     }
 };
 
@@ -79,4 +127,7 @@ module.exports = {
     updateProduct,
     deleteProduct,
     searchProducts,
+    getFilteredProducts,
+    getSortedProducts
+
 };
