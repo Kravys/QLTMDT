@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
-
+require('../models/association'); 
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
